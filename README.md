@@ -5,22 +5,22 @@ The script uses rembg, a model to remove background from an image. Here's the do
 Settings:
 
 MODE = "black_pixel"
-# "head_center": center image based on head position
-# "black_pixel": align using floor/mat reference (first black pixel)
+"head_center": center image based on head position
+"black_pixel": align using floor/mat reference (first black pixel)
 
 PERSON_VERTICAL_OFFSET = 50
-# Shifts person vertically AFTER bottom alignment, fixes feet being cut off
-# Positive: moves person upward
+Shifts person vertically AFTER bottom alignment, fixes feet being cut off
+Positive: moves person upward
 
 MASK_FIXED_HEIGHT = 1000
-# Fixed height of trapezoid "mat" in final image
+Fixed height of trapezoid "mat" in final image
 
 EXTRA_SCALE_PX = 100
-# Extra pixels added to computed person height (fine-tuning)
+Extra pixels added to computed person height (fine-tuning)
 
 SLICE_OFFSET = -50  # adjust (5–30 usually good)
-# Offset for the right edge of the mat (necessary to get rid of the pink tape getting extended)
+Offset for the right edge of the mat (necessary to get rid of the pink tape getting extended)
 
 USE_SUBJECT_FOLDERS = False
-# True: expects sub-XXXXXX folders with /jpg_work inside
-# False: directly scans ROOT_FOLDER for JPGs
+True: expects sub-XXXXXX folders with /jpg_work inside
+False: directly scans ROOT_FOLDER for JPGs
