@@ -18,7 +18,7 @@ MODE = "black_pixel"
 # These influence scaling and positioning
 # ─────────────────────────────────────────────
 PERSON_VERTICAL_OFFSET = 50
-# Shifts person vertically AFTER bottom alignment
+# Shifts person vertically AFTER bottom alignment, fixes feet being cut off
 # Positive: moves person upward
 
 MASK_FIXED_HEIGHT = 1000
@@ -33,7 +33,7 @@ SLICE_OFFSET = -50  # adjust (5–30 usually good)
 ROOT_FOLDER = "/Volumes/private/10_Data/01_Main/sub-C9941R/sharp"
 
 USE_SUBJECT_FOLDERS = False
-# True: expects sub-XXXX folders with /jpg_work inside
+# True: expects sub-XXXXXX folders with /jpg_work inside
 # False: directly scans ROOT_FOLDER for JPGs
 
 # ─────────────────────────────────────────────
@@ -41,11 +41,13 @@ USE_SUBJECT_FOLDERS = False
 # Load segmentation model (human-specific)
 session = new_session("u2net_human_seg")
 
+# helper function to save file with just the cut out person
 def save_debug_person(foreground_scaled, output_path):
     """Saves the cropped person (with transparency) as a PNG for debugging."""
     foreground_scaled.save(output_path, "PNG")
     print(f" Debug person saved → {output_path}")
 
+# Cuts out the mat from the image
 def get_trapezoid_mask(image_size: tuple[int, int]) -> tuple[Image.Image, tuple[int, int, int, int]]:
     width, height = image_size
 
@@ -69,7 +71,7 @@ def get_trapezoid_mask(image_size: tuple[int, int]) -> tuple[Image.Image, tuple[
 
     return mask, bounding_box
 
-
+# Centers the fighter by the head
 def get_paste_x_head_center(foreground_scaled, alpha_scaled, bbox_scaled,
                              input_width, new_fg_width, paste_y):
     """Script 1: center horizontally by head position."""
@@ -98,7 +100,7 @@ def get_paste_x_head_center(foreground_scaled, alpha_scaled, bbox_scaled,
 
     return paste_x
 
-
+# Centers fighter by gap between mat
 def get_paste_x_black_pixel(original_scaled, bounding_box, scale_factor, input_width):
     """Script 2: center horizontally by first black pixel in trapezoid bottom row."""
     rect_left_s, rect_top_s, rect_right_s, rect_bottom_s = [
@@ -131,7 +133,7 @@ def get_paste_x_black_pixel(original_scaled, bounding_box, scale_factor, input_w
 
     return paste_x
 
-
+# Use rmbeg model to cut out person
 def crop_person_to_black_bg(input_path, output_path, filename):
 
     match = re.search(r'stance-(\d+)', filename)
