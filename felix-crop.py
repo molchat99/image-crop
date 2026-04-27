@@ -30,7 +30,7 @@ EXTRA_SCALE_PX = 100
 SLICE_OFFSET = -50  # adjust (5–30 usually good)
 # Offset for the right edge of the mat (necessary to get rid of the pink tape getting extended)
 
-ROOT_FOLDER = "/Volumes/private/10_Data/01_Main/sub-C9941R/sharp"
+ROOT_FOLDER = ""
 
 USE_SUBJECT_FOLDERS = False
 # True: expects sub-XXXXXX folders with /jpg_work inside
