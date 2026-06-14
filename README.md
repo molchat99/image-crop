@@ -9,7 +9,7 @@ This script processes JPG images by:
 * exporting clean, aligned output images
 
 ---
-![Alt text](images/crop.png)
+![Alt text](crop.png)
 ---
 
 ## Installation
